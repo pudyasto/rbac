@@ -1,0 +1,12 @@
+DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.phtml
+RewriteEngine on
+#RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond $1 !^(index\.php|robots\.txt)
+RewriteRule ^(.*)$ index.php?/$1 [L]
+
+Options -Indexes
+Options All -Indexes
+
+ErrorDocument 403 /error/err_403.html

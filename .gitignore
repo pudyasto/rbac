@@ -1,0 +1,15 @@
+/nbproject/private/
+/nbproject/
+
+/apps/config/config.php
+/apps/config/database.php
+/apps/config/ion_auth.php
+/apps/libraries/Apps.php
+
+/apps/cache/*
+!/apps/cache/.htaccess
+!/apps/cache/index.html
+
+/files/*
+!/files/.htaccess
+!/files/index.html
