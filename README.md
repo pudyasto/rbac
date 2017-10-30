@@ -8,8 +8,8 @@ This README would normally document whatever steps are necessary to get your app
 * (Rule Based Access Control)
 * Version 1.0
 * Author: 	Pudyasto Adi
-* Website: 	http://www.pudyastoadi.my.id/
-*        :  http://pudyastoadi.dev.php.or.id
+* Website 1: 	http://www.pudyastoadi.my.id/
+* Website 2:  http://pudyastoadi.dev.php.or.id
 * Contact: 	mr.pudyasto@gmail.com
 * Follow: 	https://twitter.com/pudyastoadi
 * Like: 	https://www.facebook.com/dhyaz.cs
@@ -19,16 +19,22 @@ This README would normally document whatever steps are necessary to get your app
 
 * Install database
 * Copy all *.copy.php into general files *.php
-      - config/config.copy.php
-      - config/database.copy.php
-      - config/ion_auth.copy.php
-      - libraries/Apps.copy.php
+   - config/config.copy.php
+   - config/database.copy.php
+   - config/ion_auth.copy.php
+   - libraries/Apps.copy.php
 * Customize your setting
-      - config/config.php
-      - config/database.php
-      - config/ion_auth.php
-      - libraries/Apps.php
+   - config/config.php
+   - config/database.php
+   - config/ion_auth.php
+   - libraries/Apps.php
+
 * Try your application
+
+* Username And Password
+    - After import database file, please use this username and password :
+    - Username : administrator
+    - Password : password
 
 ### Features ###
 * This Application support MySQL Database, PostgresSQL Database
