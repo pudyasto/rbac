@@ -53,7 +53,7 @@
         </small>
         <br>
         <small>
-            For Best Experience Pleas Use Lastest
+            For Best Experience Please Use Lastest
             <a style="text-decoration: underline;" href="https://www.google.com/chrome/browser/desktop/" target="blank">Google Chrome</a> 
         </small>
     </p>     
