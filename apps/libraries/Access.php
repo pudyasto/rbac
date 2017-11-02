@@ -174,40 +174,29 @@ class Access {
     
     private function _privilege($class,$userid) {
         $username = $this->ci->session->userdata('username');
-        if($username=="administrator"){
+        $binding_val = [];
+        if($username == "administrator" || $class == "profile"){
             $str = "SELECT 1 moduleid ,1 act_add ,1 act_edit ,1 act_delete ,1 act_print";
         }else{
-            $str = "SELECT m.id
-                        ,(SELECT ga.id
-                                FROM groups_access AS ga 
-                                        INNER JOIN users_groups AS ug ON ga.group_id = ug.group_id
-                                WHERE (ug.user_id = '".$userid."') 
-                                        AND (ga.menu_id = m.id)) moduleid
-                        ,(SELECT substring(ga.privilege,1,1)
-                                FROM groups_access AS ga 
-                                        INNER JOIN users_groups AS ug ON ga.group_id = ug.group_id
-                                WHERE (ug.user_id = '".$userid."') 
-                                        AND (ga.menu_id = m.id)) act_add
-                        ,(SELECT substring(ga.privilege,3,1)
-                                FROM groups_access AS ga 
-                                        INNER JOIN users_groups AS ug ON ga.group_id = ug.group_id
-                                WHERE (ug.user_id = '".$userid."') 
-                                        AND (ga.menu_id = m.id)) act_edit 
-                        ,(SELECT substring(ga.privilege,5,1)
-                                FROM groups_access AS ga 
-                                        INNER JOIN users_groups AS ug ON ga.group_id = ug.group_id
-                                WHERE (ug.user_id = '".$userid."') 
-                                        AND (ga.menu_id = m.id)) act_delete
-                        ,(SELECT substring(ga.privilege,7,1)
-                                FROM groups_access AS ga 
-                                        INNER JOIN users_groups AS ug ON ga.group_id = ug.group_id
-                                WHERE (ug.user_id = '".$userid."') 
-                                        AND (ga.menu_id = m.id)) act_print
-                        FROM menus m
-                        WHERE (link = '".$class."')";
+            $binding_val = [$userid, $class];
+            $str = "SELECT
+                        m.`id`,
+                        ga.`id` moduleid,
+                        substring(ga.`privilege`, 1, 1) act_add,
+                        substring(ga.`privilege`, 3, 1) act_edit,
+                        substring(ga.`privilege`, 5, 1) act_delete,
+                        substring(ga.`privilege`, 7, 1) act_print
+                    FROM
+                        menus m
+                    JOIN groups_access ga ON ga.`menu_id` = m.`id`
+                    JOIN users_groups ug ON ug.`group_id` = ga.`group_id`
+                    AND ug.`user_id` = ?
+                    WHERE
+                        m.`link` = ?";
+                    
         }
         
-        $query = $this->ci->db->query($str);
+        $query = $this->ci->db->query($str, $binding_val);
         return $query->result_array();
     }
 }
