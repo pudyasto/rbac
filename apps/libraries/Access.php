@@ -25,7 +25,7 @@ class Access {
     public function menu_app($class) {
         $this->ci->db->where('mainmenuid',NULL, FALSE);
         $query = $this->ci->db->get('menus');
-        $output['menus']="";
+        $output['menus']= [];
         $result = $query->result(); 
         
         foreach ($result as $res)
@@ -85,7 +85,7 @@ class Access {
                     ORDER BY menus.name ASC"; 
             $query = $this->ci->db->query($str);            
         }
-        $output['submenu']="";
+        $output['submenu']= [];
         $result = $query->result();
         foreach ($result as $row)
         {
