@@ -153,7 +153,7 @@ class Access {
         if((skipclass($class)=="dashboard" || skipclass($class)=="") && $action=="show"){
             $res = "show";
         }else{
-            $res = $this->_privilege($class,$userid);
+            $res = $this->_privilege(skipclass($class),$userid);
             if($action=="show" && !empty($res[0]["moduleid"])){
                 $res = "show";
             }elseif($action=="add" && empty($res[0]["act_add"])){
@@ -180,19 +180,19 @@ class Access {
         }else{
             $binding_val = [$userid, $class];
             $str = "SELECT
-                        m.`id`,
-                        ga.`id` moduleid,
-                        substring(ga.`privilege`, 1, 1) act_add,
-                        substring(ga.`privilege`, 3, 1) act_edit,
-                        substring(ga.`privilege`, 5, 1) act_delete,
-                        substring(ga.`privilege`, 7, 1) act_print
+                        m.id,
+                        ga.id moduleid,
+                        substring(ga.privilege, 1, 1) act_add,
+                        substring(ga.privilege, 3, 1) act_edit,
+                        substring(ga.privilege, 5, 1) act_delete,
+                        substring(ga.privilege, 7, 1) act_print
                     FROM
                         menus m
-                    JOIN groups_access ga ON ga.`menu_id` = m.`id`
-                    JOIN users_groups ug ON ug.`group_id` = ga.`group_id`
-                    AND ug.`user_id` = ?
+                    JOIN groups_access ga ON ga.menu_id = m.id
+                    JOIN users_groups ug ON ug.group_id = ga.group_id
+                    AND ug.user_id = ?
                     WHERE
-                        m.`link` = ?";
+                        m.link = ?";
                     
         }
         
