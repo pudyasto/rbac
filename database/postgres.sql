@@ -110,8 +110,8 @@ CREATE TABLE "ci_sessions" (
 
 CREATE INDEX "ci_sessions_timestamp" ON "ci_sessions" ("timestamp");
 
-INSERT INTO groups (id, name, description) VALUES
-    (1,'admin','Administrator');
+INSERT INTO groups ( name, description) VALUES
+    ('admin','Administrator');
 
 INSERT INTO users (ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone) VALUES
     ('127.0.0.1','administrator','$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36','','admin@admin.com','',NULL,'1268889823','1268889823','1','Admin','istrator','ADMIN','0');
@@ -119,7 +119,9 @@ INSERT INTO users (ip_address, username, password, salt, email, activation_code,
 INSERT INTO users_groups (user_id, group_id) VALUES
     (1,1);
 
-INSERT INTO menus (id, menuorder, name, description, link, icon, statmenu, mainmenuid) VALUES (3, NULL, 'User Groups', 'User groups management', 'groups', 'fa fa-users', 1, 1);
-INSERT INTO menus (id, menuorder, name, description, link, icon, statmenu, mainmenuid) VALUES (2, NULL, 'Menus', 'All menus in application', 'menus', 'fa fa-bars', 1, 1);
-INSERT INTO menus (id, menuorder, name, description, link, icon, statmenu, mainmenuid) VALUES (1, NULL, 'Users and Menus', 'Navigate all users and menus application', '#', 'fa fa-th', 1, NULL);
-INSERT INTO menus (id, menuorder, name, description, link, icon, statmenu, mainmenuid) VALUES (4, NULL, 'Users', 'User Application Management', 'users', 'fa fa-user-plus', 1, 1);    
+
+INSERT INTO menus (menuorder, name, description, link, icon, statmenu, mainmenuid) VALUES (NULL, 'Users and Menus', 'Navigate all users and menus application', '#', 'fa fa-th', 1, NULL);
+INSERT INTO menus (menuorder, name, description, link, icon, statmenu, mainmenuid) VALUES (NULL, 'Users', 'User Application Management', 'users', 'fa fa-user-plus', 1, 1);    
+INSERT INTO menus (menuorder, name, description, link, icon, statmenu, mainmenuid) VALUES (NULL, 'Menus', 'All menus in application', 'menus', 'fa fa-bars', 1, 1);
+INSERT INTO menus (menuorder, name, description, link, icon, statmenu, mainmenuid) VALUES (NULL, 'User Groups', 'User groups management', 'groups', 'fa fa-users', 1, 1);
+INSERT INTO menus (menuorder, name, description, link, icon, statmenu, mainmenuid) VALUES (NULL, 'Monitoring Users', 'Monitoring users active', 'usermonitor', 'fa fa-video-camera', '1', '1');
