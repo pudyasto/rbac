@@ -34,12 +34,12 @@ class Usermonitor_qry extends CI_Model{
         }        
         
         $aColumns = array(
-                        'id',
+                        'timestamp',
                         'data',
                         'ip_address',
                         'data',
                         'data',
-                        'timestamp',
+                        'id',
                     );
 	$sIndexColumn = "id";
         if(!empty($_GET['iDisplayLength'])){
