@@ -55,7 +55,12 @@ class MY_Controller extends CI_Controller{
             }    
         }
         
-        $show = $this->access->module_access('show');
+        $action = $this->uri->segment(2);
+        if($action!=="get_menu"){
+            $show = $this->access->module_access('show');
+        }else{
+            $show = $this->access->module_access($action);
+        }
         if(empty($show)){
             redirect('debug/err_505','refresh');
             exit;

@@ -150,7 +150,10 @@ class Access {
         $class = $this->ci->uri->segment(1);
         $userid = $this->ci->session->userdata('userid');
         $res = null;
-        if((skipclass($class)=="dashboard" || skipclass($class)=="") && $action=="show"){
+        if((skipclass($class)=="menus") && $action=="get_menu"){
+            $res = "show";
+        }elseif((skipclass($class)=="dashboard" || skipclass($class)=="") 
+                && $action=="show"){
             $res = "show";
         }else{
             $res = $this->_privilege(skipclass($class),$userid);

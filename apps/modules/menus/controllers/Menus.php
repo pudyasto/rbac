@@ -36,6 +36,54 @@ class Menus extends MY_Controller {
 
     //redirect if needed, otherwise display the user list
     
+    public function get_menu() {
+        $q = $this->input->post('q');
+        $this->db->where("statmenu = '1' AND link <> '#' AND (LOWER(name) LIKE '%".strtolower($q)."%' OR LOWER(description) LIKE '%".strtolower($q)."%')");
+        $this->db->order_by("CASE "
+                . " WHEN LOWER(name) LIKE '".strtolower($q)."' THEN 1"
+                . " WHEN LOWER(name) LIKE '".strtolower($q)."%' THEN 2"
+                . " WHEN LOWER(name) LIKE '%".strtolower($q)."' THEN 3"
+                . " WHEN LOWER(name) LIKE '%".strtolower($q)."%' THEN 4"
+                . " WHEN LOWER(description) LIKE '".strtolower($q)."' THEN 5"
+                . " WHEN LOWER(description) LIKE '".strtolower($q)."%' THEN 6"
+                . " WHEN LOWER(description) LIKE '%".strtolower($q)."' THEN 7"
+                . " WHEN LOWER(description) LIKE '%".strtolower($q)."%' THEN 8"
+                . " END");
+        $this->db->order_by('name','ASC');
+        $query = $this->db->get('menus');
+        //echo $this->db->last_query();
+        if($query->num_rows()>0){
+            $res = $query->result_array();
+            foreach ($res as $value) {
+                $d_arr[] = array(
+                    'id' => $value['link'],
+                    'text' => $value['name'],
+                    'description' => $value['description'],
+                );
+
+            }
+            $data = array(
+                'total_count' => $query->num_rows(),
+                'incomplete_results' => true,
+                'items' => $d_arr
+            );
+            echo json_encode($data);
+        }else{
+            $d_arr[] = array(
+                'id' => '',
+                'text' => '',
+                'description' => '',
+            );
+
+            $data = array(
+                'total_count' => 0,
+                'incomplete_results' => true,
+                'items' => $d_arr
+            );
+            echo json_encode($data);
+        }
+    }
+    
     public function index(){
         
         $this->template

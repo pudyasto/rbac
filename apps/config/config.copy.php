@@ -438,6 +438,7 @@ $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array(
     'groupaccess/submit',
     'profile/upload_photo',
+    'menus/get_menu',
 );
 
 /*

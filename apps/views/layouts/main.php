@@ -15,11 +15,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="<?=base_url('assets/dist/css/AdminLTE.min.css');?>">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="<?=base_url('assets/dist/css/skins/_all-skins.min.css');?>">
+    
+    <!-- Select2-->
+    <link href="<?=base_url('assets/plugins/select2/select2.css');?>" rel="stylesheet">
     <!-- iCheck -->
     <link rel="stylesheet" href="<?=base_url('assets/plugins/iCheck/flat/blue.css');?>">
     <!-- jvectormap -->
@@ -30,6 +28,12 @@
     <link rel="stylesheet" href="<?=base_url('assets/plugins/daterangepicker/daterangepicker.css');?>">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="<?=base_url('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');?>">
+    
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<?=base_url('assets/dist/css/AdminLTE.min.css');?>">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="<?=base_url('assets/dist/css/skins/_all-skins.min.css');?>">
 
   
 
@@ -68,6 +72,10 @@
     <!-- Jansy -->
     <link rel="stylesheet" href="<?=base_url('assets/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css');?>">
     <script src="<?=base_url('assets/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js');?>"></script>
+    
+    
+    <!-- Select2 -->
+    <script src="<?=base_url('assets/plugins/select2/select2.full.min.js');?>"></script>
     
     <!-- Ajax Form -->
     <script src="<?=base_url('assets/plugins/jquery-form/jquery.form.min.js');?>"></script>
@@ -383,13 +391,10 @@
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
+      <form action="#" method="get" class="sidebar-form" style="border: none;">
         <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+            <select class="form-control" name="q-menu" id="q-menu">
+            </select>
         </div>
       </form>
       <!-- /.search form -->
@@ -455,7 +460,13 @@
                 <i class="fa fa-user"></i> 
                 <span>Profile</span>
             </a>
-        </li>                            
+        </li>    
+        <li>
+            <a href="javascript:void(0);" onclick="logout();" title="Logout application">
+                <i class="fa fa-sign-out"></i> 
+                <span>Logout</span>
+            </a>
+        </li>                        
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -490,5 +501,84 @@
 
 </div>
 <!-- ./wrapper -->
+<script>
+    $(document).ready(function() {
+        $('#q-menu').select2({
+            placeholder: 'Search Menu ...',
+            dropdownAutoWidth : false,
+            width: '210px',
+            ajax: {
+                  url: "<?=site_url('menus/get_menu');?>",
+                  type: 'post',
+                  dataType: 'json',
+                  delay: 250,
+                  data: function (params) {
+                    return {
+                      q: params.term, // search term
+                      page: params.page
+                    };
+                  },
+                  processResults: function (data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+
+                    return {
+                      results: data.items,
+                      pagination: {
+                        more: (params.page * 30) < data.total_count
+                      }
+                    };
+                  },
+                  cache: true
+                },
+                escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+                minimumInputLength: 1,
+                templateResult: formatMenus, // omitted for brevity, see the source of this page
+                templateSelection: formatMenusSelection // omitted for brevity, see the source of this page
+        });        
+        
+        $('#q-menu').change(function(){
+            var data = $(this).val();
+            window.location.replace("<?=site_url();?>"+data);
+        });
+        
+        function formatMenus (repo) {
+            if (repo.loading) return "Searching data ... ";
+
+
+            var markup = "<div class='select2-result-repository clearfix'>" +
+              "<div class='select2-result-repository__meta'>" +
+                "<div class='select2-result-repository__title'><b style='font-size: 14px;'>" + repo.text + "</b></div>";
+
+            markup += "<div class='select2-result-repository__statistics'>" +
+              "<div class='select2-result-repository__stargazers' style='font-size: 12px;'> " + repo.description + " </div>" +
+            "</div>" +
+            "</div></div>";
+            return markup;
+          }
+
+        function formatMenusSelection (repo) {
+            return repo.full_name || repo.text;
+        }  
+    });
+    
+    function logout(){
+        swal({
+            title: "Confirm Logout!",
+            text: "Are you sure ?",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#c9302c",
+            confirmButtonText: "Yes, I'm sure!",
+            cancelButtonText: "No, I'm not sure!",
+            closeOnConfirm: false
+        }, function () {
+            location.replace("<?=site_url('access/logout');?>");
+        });
+    }
+</script>
 </body>
 </html>
