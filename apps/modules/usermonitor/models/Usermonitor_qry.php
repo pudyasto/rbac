@@ -155,7 +155,11 @@ class Usermonitor_qry extends CI_Model{
         foreach ( $rResult->result_array() as $aRow )
         {
                 $row = array();
-                $session_data = $aRow['data'];
+                if(base64_decode($aRow['data'],true)){
+                    $session_data = base64_decode($aRow['data']);
+                }else{
+                    $session_data = $aRow['data'];
+                }
                 $return_data = array();
                 $offset = 0;
                 while ($offset < strlen($session_data)) {
