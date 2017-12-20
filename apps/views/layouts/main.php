@@ -418,7 +418,7 @@
             </a>
         </li>
         <?php
-            $menu_app = $this->access->menu_app($class_name);
+            $menu_app = $this->rbac->menu_app($class_name);
             if(is_array($menu_app)){
                 foreach ($menu_app['menus'] as $mn)
                 {  

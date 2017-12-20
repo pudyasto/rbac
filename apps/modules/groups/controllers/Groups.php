@@ -45,7 +45,7 @@ class Groups extends MY_Controller {
     }
 
     public function add(){   
-        if(!empty($this->access->module_access('add'))){
+        if(!empty($this->rbac->module_access('add'))){
             redirect('debug/err_505');
         }
         $this->_init_add();
@@ -57,7 +57,7 @@ class Groups extends MY_Controller {
     }
     
     public function edit() {
-        if(!empty($this->access->module_access('edit'))){
+        if(!empty($this->rbac->module_access('edit'))){
             redirect('debug/err_505');
         }
         $this->_init_edit();

@@ -49,7 +49,7 @@ class MY_Controller extends CI_Controller{
             $this->msg_main = "Welcome ";
             $this->msg_detail = $this->session->userdata('first_name').' '.$this->session->userdata('last_name');
         }else{
-            foreach($this->access->ceksubmenu_app($kelas) as $val){
+            foreach($this->rbac->ceksubmenu_app($kelas) as $val){
                 $this->msg_main = $val->name;
                 $this->msg_detail = $val->description;
             }    
@@ -57,9 +57,9 @@ class MY_Controller extends CI_Controller{
         
         $action = $this->uri->segment(2);
         if($action!=="get_menu"){
-            $show = $this->access->module_access('show');
+            $show = $this->rbac->module_access('show');
         }else{
-            $show = $this->access->module_access($action);
+            $show = $this->rbac->module_access($action);
         }
         if(empty($show)){
             redirect('debug/err_505','refresh');

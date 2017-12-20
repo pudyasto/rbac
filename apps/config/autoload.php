@@ -65,7 +65,7 @@ $autoload['libraries'] = array('template',
                                 'session', 
                                 'apps', 
                                 'form_validation', 
-                                'access',
+                                'rbac',
                                 'ion_auth',
                                 'email',
                               );

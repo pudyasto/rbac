@@ -16,7 +16,7 @@
     <div class="col-xs-12">
         <div class="box">
           <div class="box-header">
-            <a href="<?php echo $add;?>" <?php echo $this->access->module_access('add');?> class="btn btn-primary">Add</a>
+            <a href="<?php echo $add;?>" <?php echo $this->rbac->module_access('add');?> class="btn btn-primary">Add</a>
             <a href="javascript:void(0);" class="btn btn-default btn-refersh">Refresh</a>
             <div class="box-tools pull-right">
                 <div class="btn-group">
@@ -24,7 +24,7 @@
                     <i class="fa fa-wrench"></i></button>
                   <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="<?php echo $add;?>" <?php echo $this->access->module_access('add');?>>Add New Record</a>
+                        <a href="<?php echo $add;?>" <?php echo $this->rbac->module_access('add');?>>Add New Record</a>
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="btn-refersh">Refresh</a>

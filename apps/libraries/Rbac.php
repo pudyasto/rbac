@@ -16,7 +16,7 @@
  *
  * @author pudyasto
  */
-class Access {
+class Rbac {
     //put your code here
     public function __construct(){
         $this->ci =& get_instance();
