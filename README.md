@@ -4,8 +4,8 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* Gmaps - Web Application
-* (Map Manipulation by Google Maps)
+* RBAC - Web Application
+* (Rule Based Access Control)
 * Version Beta 1.0
 * Author: 	Pudyasto Adi Wibowo
 * Website: 	http://www.pudyastoadi.web.id/
@@ -16,24 +16,27 @@ This README would normally document whatever steps are necessary to get your app
 
 ### How do I get set up? ###
 
-* Please config your virtual host into folder /public
-
+* Install database
+* Copy all *.copy.php into general files *.php
+      - config/config.copy.php
+      - config/database.copy.php
+      - config/ion_auth.copy.php
+      - libraries/Apps.copy.php
+* Customize your setting
+      - config/config.php
+      - config/database.php
+      - config/ion_auth.php
+      - libraries/Apps.php
 * Try your application
 
-* Username And Password
-    - Username : admin
-    - Password : admin
+### Contribution guidelines ###
 
-### Special Thanks to ###
-
-* CoreUI - https://github.com/coreui/coreui-free-bootstrap-admin-template
+* AdminLTE - https://almsaeedstudio.com/themes/AdminLTE/index2.html
 * Codeigniter 3 - https://codeigniter.com/
 * HMVC - https://bitbucket.org/wiredesignz/codeigniter-modular-extensions-hmvc
 * Template Engine - https://github.com/philsturgeon/codeigniter-template
-* Google Maps - https://developers.google.com/maps/?hl=id
-* Titounnes (Menu Recursive) - https://github.com/titounnes/menu-recursive
+* Ion Auth - https://github.com/benedmunds/CodeIgniter-Ion-Auth
 
-### Support Us ###
-* Donate via BCA - 2460637638
+### Who do I talk to? ###
 
-Happy Coding
+* mr.pudyasto@gmail.com
